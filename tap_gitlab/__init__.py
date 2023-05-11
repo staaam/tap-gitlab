@@ -729,6 +729,8 @@ def sync_bridges(project, pipeline):
                 # Although jobs cannot be queried by updated_at, if a job changes
                 # it's pipeline's updated_at is changed.
                 sync_jobs(project, transformed_row["downstream_pipeline"])
+                
+                sync_bridges(project, transformed_row["downstream_pipeline"])
 
 def sync_pipelines_extended(project, pipeline):
     entity = "pipelines_extended"
