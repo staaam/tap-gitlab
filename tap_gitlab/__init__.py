@@ -23,6 +23,7 @@ CONFIG = {
     'groups': '',
     'ultimate_license': False,
     'fetch_bridges': False,
+    'fetch_test_reports': False,
     'fetch_merge_request_commits': False,
     'fetch_pipelines_extended': False
 }
@@ -184,6 +185,12 @@ RESOURCES = {
         'url': '/projects/{id}/pipelines/{secondary_id}/bridges',
         'schema': load_schema('bridges'),
         'key_properties': ['id'],
+        'replication_method': 'FULL_TABLE',
+    },
+    'test_reports': {
+        'url': '/projects/{id}/pipelines/{secondary_id}/test_report',
+        'schema': load_schema('test_reports'),
+        'key_properties': ['pipeline_id', 'suit_name', 'name'],
         'replication_method': 'FULL_TABLE',
     },
 }
@@ -700,6 +707,8 @@ def sync_pipelines(project):
             # it's pipeline's updated_at is changed.
             sync_jobs(project, transformed_row)
 
+            sync_test_report(project, transformed_row)
+
             sync_bridges(project, transformed_row)
 
     singer.write_state(STATE)
@@ -729,8 +738,30 @@ def sync_bridges(project, pipeline):
                 # Although jobs cannot be queried by updated_at, if a job changes
                 # it's pipeline's updated_at is changed.
                 sync_jobs(project, transformed_row["downstream_pipeline"])
-                
+
+                sync_test_report(project, transformed_row["downstream_pipeline"])
+
                 sync_bridges(project, transformed_row["downstream_pipeline"])
+
+def sync_test_report(project, pipeline):
+    entity = "test_reports"
+    stream = CATALOG.get_stream(entity)
+    if not stream.is_selected():
+        return
+
+    mdata = metadata.to_map(stream.metadata)
+    url = get_url(entity=entity, id=project['id'], secondary_id=pipeline['id'])
+
+    with Transformer(pre_hook=format_timestamp) as transformer:
+        for row in gen_request(url):
+            for test_suit in row['test_suites']:
+                for test_case in test_suit['test_cases']:
+                    test_case['project_id'] = project['id']
+                    test_case['pipeline_id'] = pipeline['id']
+                    test_case['suit_name'] = test_suit['name']
+                    transformed_row = transformer.transform(test_case, RESOURCES[entity]["schema"], mdata)
+
+                    singer.write_record(entity, transformed_row, time_extracted=utils.now())
 
 def sync_pipelines_extended(project, pipeline):
     entity = "pipelines_extended"
@@ -899,6 +930,8 @@ def main_impl():
     CONFIG['ultimate_license'] = truthy(CONFIG['ultimate_license'])
     CONFIG['fetch_merge_request_commits'] = truthy(CONFIG['fetch_merge_request_commits'])
     CONFIG['fetch_pipelines_extended'] = truthy(CONFIG['fetch_pipelines_extended'])
+    CONFIG['fetch_bridges'] = truthy(CONFIG['fetch_bridges'])
+    CONFIG['fetch_test_reports'] = truthy(CONFIG['fetch_test_reports'])
 
     if '/api/' not in CONFIG['api_url']:
         CONFIG['api_url'] += '/api/v4'
