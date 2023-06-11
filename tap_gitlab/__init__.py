@@ -169,7 +169,7 @@ RESOURCES = {
         'replication_method': 'FULL_TABLE',
     },
     'pipelines': {
-        'url': '/projects/{id}/pipelines?updated_after={start_date}',
+        'url': '/projects/{id}/pipelines?updated_after={start_date}&order_by=updated_at&sort=asc',
         'schema': load_schema('pipelines'),
         'key_properties': ['id'],
         'replication_method': 'INCREMENTAL',
@@ -721,6 +721,8 @@ def sync_pipelines(project):
             sync_test_report(project, transformed_row)
 
             sync_bridges(project, transformed_row)
+
+            singer.write_state(STATE)
 
     singer.write_state(STATE)
 
