@@ -237,6 +237,12 @@ def get_start(entity):
                       max_tries=5,
                       giveup=lambda e: e.response is not None and 400 <= e.response.status_code < 500, # pylint: disable=line-too-long
                       factor=2)
+@backoff.on_exception(backoff.constant,
+                      (requests.exceptions.RequestException),
+                      max_tries=5,
+                      giveup=lambda e: e.response is None or e.response.status_code != 429,
+                      jitter=None,
+                      interval=70)
 def request(url, params=None):
     params = params or {}
 
@@ -251,6 +257,11 @@ def request(url, params=None):
         LOGGER.info("Skipping request to {}".format(url))
         LOGGER.info("Reason: {} - {}".format(resp.status_code, resp.content))
         raise ResourceInaccessible
+    elif resp.status_code in (429,) or resp.status_code >= 500:
+        LOGGER.warning(
+            "Error making request to GitLab API: GET {} [{} - {}]".format(
+                url, resp.status_code, resp.content))
+        raise requests.exceptions.RequestException(response=resp)
     elif resp.status_code >= 400:
         LOGGER.critical(
             "Error making request to GitLab API: GET {} [{} - {}]".format(
