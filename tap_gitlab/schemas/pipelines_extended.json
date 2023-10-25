@@ -26,7 +26,7 @@
             "type": ["null", "string"]
         },
         "user": {
-            "type": "object",
+            "type": ["null", "object"],
             "properties": {
                 "name": {
                   "type": "string"
@@ -43,79 +43,30 @@
             }
         },
         "created_at": {
-            "anyOf": [
-                {
-                    "type": "string",
-                    "format": "date-time"
-                },
-                {
-                    "type": "null"
-                }
-            ]
+          "type": ["null", "string"],
+          "format": "date-time"
         },
         "updated_at": {
-            "anyOf": [
-                {
-                    "type": "string",
-                    "format": "date-time"
-                },
-                {
-                    "type": "null"
-                }
-            ]
+          "type": ["null", "string"],
+          "format": "date-time"
         },
         "started_at": {
-            "anyOf": [
-                {
-                    "type": "string",
-                    "format": "date-time"
-                },
-                {
-                    "type": "null"
-                }
-            ]
+          "type": ["null", "string"],
+          "format": "date-time"
         },
         "finished_at": {
-            "anyOf": [
-                {
-                    "type": "string",
-                    "format": "date-time"
-                },
-                {
-                    "type": "null"
-                }
-            ]
+          "type": ["null", "string"],
+          "format": "date-time"
         },
         "committed_at": {
-            "anyOf": [
-                {
-                    "type": "string",
-                    "format": "date-time"
-                },
-                {
-                    "type": "null"
-                }
-            ]
+          "type": ["null", "string"],
+          "format": "date-time"
         },
         "duration": {
-            "anyOf": [
-                {
-                    "type": "integer"
-                },
-                {
-                    "type": "null"
-                }
-            ]
+            "type": ["null", "integer"]
         },
         "coverage": {
-            "anyOf": [
-                {
-                    "type": "number"
-                },
-                {
-                    "type": "null"
-                }
-            ]
+            "type": ["null", "number"]
         },
         "web_url": {
             "type": ["null", "string"]

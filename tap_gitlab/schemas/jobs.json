@@ -32,94 +32,45 @@
             "type": ["null", "string"]
         },
         "status": {
-            "anyOf": [
-                {
-                    "type": "string",
-                    "enum": [
-                        "created",
-                        "waiting_for_resource",
-                        "pending",
-                        "running",
-                        "failed",
-                        "success",
-                        "canceled",
-                        "skipped",
-                        "manual"
-                    ]
-                },
-                {
-                    "type": "null"
-                }
+            "type": ["null", "string"],
+            "enum": [
+                "created",
+                "waiting_for_resource",
+                "pending",
+                "running",
+                "failed",
+                "success",
+                "canceled",
+                "skipped",
+                "manual"
             ]
         },
         "duration": {
-            "anyOf": [
-                {
-                    "type": "number",
-                    "format": "float"
-                },
-                {
-                    "type": "null"
-                }
-            ]
+            "type": ["null", "number"],
+            "format": "float"
         },
         "coverage": {
-            "anyOf": [
-                {
-                    "type": "number",
-                    "format": "float"
-                },
-                {
-                    "type": "null"
-                }
-            ]
+            "type": ["null", "number"],
+            "format": "float"
         },
         "allow_failure": {
             "type": ["null", "boolean"]
         },
         "created_at": {
-            "anyOf": [
-                {
-                    "type": "string",
-                    "format": "date-time"
-                },
-                {
-                    "type": "null"
-                }
-            ]
+          "type": ["null", "string"],
+          "format": "date-time"
         },
         "started_at": {
-            "anyOf": [
-                {
-                    "type": "string",
-                    "format": "date-time"
-                },
-                {
-                    "type": "null"
-                }
-            ]
+          "type": ["null", "string"],
+          "format": "date-time"
         },
         "finished_at": {
-            "anyOf": [
-                {
-                    "type": "string",
-                    "format": "date-time"
-                },
-                {
-                    "type": "null"
-                }
-            ]
+          "type": ["null", "string"],
+          "format": "date-time"
         },
         "artifacts_expire_at": {
-            "anyOf": [
-                {
-                    "type": "string",
-                    "format": "date-time"
-                },
-                {
-                    "type": "null"
-                }
-            ]
+          "type": ["null", "string"],
+          "format": "date-time"
         }
     }
 }

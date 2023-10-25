@@ -35,22 +35,15 @@
             "type": ["null", "string"]
         },
         "projects": {
-            "anyOf": [
-                {
-                    "type": "array",
-                    "items": {
-                        "type": "object",
-                        "properties": {
-                            "id": {
-                                "type": ["null", "integer"]
-                            }
-                        }
+            "type": ["null", "array"],
+            "items": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": ["null", "integer"]
                     }
-                },
-                {
-                    "type": "null"
                 }
-            ]
+            }
         }
     }
 }

@@ -38,26 +38,12 @@
             "type": ["null", "string"]
         },
         "created_at": {
-            "anyOf": [
-                {
-                    "type": "string",
-                    "format": "date-time"
-                },
-                {
-                    "type": "null"
-                }
-            ]
+          "type": ["null", "string"],
+          "format": "date-time"
         },
         "updated_at": {
-            "anyOf": [
-                {
-                    "type": "string",
-                    "format": "date-time"
-                },
-                {
-                    "type": "null"
-                }
-            ]
+          "type": ["null", "string"],
+          "format": "date-time"
         },
         "labels": {
             "type": "array",

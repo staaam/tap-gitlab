@@ -17,15 +17,8 @@
             "type": ["null", "boolean"]
         },
         "created_at": {
-            "anyOf": [
-                {
-                    "type": "string",
-                    "format": "date-time"
-                },
-                {
-                    "type": "null"
-                }
-            ]
+          "type": ["null", "string"],
+          "format": "date-time"
         },
         "creator_id": {
             "type": ["null", "integer"]
@@ -49,15 +42,8 @@
             "type": ["null", "boolean"]
         },
         "last_activity_at": {
-            "anyOf": [
-                {
-                    "type": "string",
-                    "format": "date-time"
-                },
-                {
-                    "type": "null"
-                }
-            ]
+          "type": ["null", "string"],
+          "format": "date-time"
         },
         "lfs_enabled": {
             "type": ["null", "boolean"]
@@ -119,40 +105,26 @@
             "type": "object",
             "properties": {
                 "group_access": {
-                    "anyOf": [
-                        {
-                            "type": "object",
-                            "properties": {
-                                "access_level": {
-                                    "type": ["null", "integer"]
-                                },
-                                "notification_level": {
-                                    "type": ["null", "integer"]
-                                }
-                            }
+                    "type": ["null", "object"],
+                    "properties": {
+                        "access_level": {
+                            "type": ["null", "integer"]
                         },
-                        {
-                            "type": "null"
+                        "notification_level": {
+                            "type": ["null", "integer"]
                         }
-                    ]
+                    }
                 },
                 "project_access": {
-                    "anyOf": [
-                        {
-                            "type": "object",
-                            "properties": {
-                                "access_level": {
-                                    "type": ["null", "integer"]
-                                },
-                                "notification_level": {
-                                    "type": ["null", "integer"]
-                                }
-                            }
+                    "type": ["null", "object"],
+                    "properties": {
+                        "access_level": {
+                            "type": ["null", "integer"]
                         },
-                        {
-                            "type": "null"
+                        "notification_level": {
+                            "type": ["null", "integer"]
                         }
-                    ]
+                    }
                 }
             }
         },
@@ -169,28 +141,21 @@
             "type": ["null", "boolean"]
         },
         "shared_with_groups": {
-            "anyOf": [
-                {
-                    "type": "array",
-                    "items": {
-                        "type": "object",
-                        "properties": {
-                            "group_id": {
-                                "type": ["null", "integer"]
-                            },
-                            "group_name": {
-                                "type": ["null", "string"]
-                            },
-                            "group_access_level": {
-                                "type": ["null", "integer"]
-                            }
-                        }
+            "type": ["null", "array"],
+            "items": {
+                "type": "object",
+                "properties": {
+                    "group_id": {
+                        "type": ["null", "integer"]
+                    },
+                    "group_name": {
+                        "type": ["null", "string"]
+                    },
+                    "group_access_level": {
+                        "type": ["null", "integer"]
                     }
-                },
-                {
-                    "type": "null"
                 }
-            ]
+            }
         },
         "snippets_enabled": {
             "type": ["null", "boolean"]
@@ -222,17 +187,10 @@
             }
         },
         "tag_list": {
-            "anyOf": [
-                {
-                    "type": "array",
-                    "items": {
-                        "type": ["null", "string"]
-                    }
-                },
-                {
-                    "type": "null"
-                }
-            ]
+            "type": ["null", "array"],
+            "items": {
+                "type": ["null", "string"]
+            }
         },
         "visibility_level": {
             "type": ["null", "integer"]

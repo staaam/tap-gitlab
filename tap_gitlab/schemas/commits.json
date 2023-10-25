@@ -20,15 +20,8 @@
             "type": ["null", "string"]
         },
         "authored_date": {
-            "anyOf": [
-                {
-                    "type": "string",
-                    "format": "date-time"
-                },
-                {
-                    "type": "null"
-                }
-            ]
+          "type": ["null", "string"],
+          "format": "date-time"
         },
         "committer_name": {
             "type": ["null", "string"]
@@ -37,26 +30,12 @@
             "type": ["null", "string"]
         },
         "committed_date": {
-            "anyOf": [
-                {
-                    "type": "string",
-                    "format": "date-time"
-                },
-                {
-                    "type": "null"
-                }
-            ]
+          "type": ["null", "string"],
+          "format": "date-time"
         },
         "created_at": {
-            "anyOf": [
-                {
-                    "type": "string",
-                    "format": "date-time"
-                },
-                {
-                    "type": "null"
-                }
-            ]
+          "type": ["null", "string"],
+          "format": "date-time"
         },
         "message": {
             "type": ["null", "string"]
@@ -65,17 +44,10 @@
             "type": ["null", "boolean"]
         },
         "parent_ids": {
-            "anyOf": [
-                {
-                    "type": "array",
-                    "items": {
-                        "type": ["null", "string"]
-                    }
-                },
-                {
-                    "type": "null"
-                }
-            ]
+            "type": ["null", "array"],
+            "items": {
+                "type": ["null", "string"]
+            }
         },
         "stats": {
             "type": "object",
