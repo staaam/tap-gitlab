@@ -708,6 +708,9 @@ def sync_pipelines(project):
             # Write the Pipeline record
             singer.write_record(entity, transformed_row, time_extracted=utils.now())
             utils.update_state(STATE, state_key, row['updated_at'])
+            if parse_datetime(row['updated_at']) - parse_datetime(row['created_at']) > datetime.timedelta(days=1):
+                LOGGER.info("Stale pipeline, skipping: %s", row['web_url'])
+                continue
 
             # Sync additional details of a pipeline using get-a-single-pipeline endpoint
             # https://docs.gitlab.com/ee/api/pipelines.html#get-a-single-pipeline
